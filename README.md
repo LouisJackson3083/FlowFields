@@ -1,3 +1,5 @@
 # Flowfields
 
-![Alt Text]([https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif](https://github.com/LouisJackson3083/FlowFields/blob/master/example_gifs/flowfields_bw.gif)https://github.com/LouisJackson3083/FlowFields/blob/master/example_gifs/flowfields_bw.gif)
+![A gif of the flowfields algorithm]([https://github.com/LouisJackson3083/FlowFields/blob/master/example_gifs/flowfield_bw.gif])
+
+![A blue gif of the flowfields algorithm]([https://github.com/LouisJackson3083/FlowFields/blob/master/example_gifs/flowfield_blue.gif])
