@@ -20,7 +20,7 @@ class Particle():
         self.canvas_shape = canvas_shape
         self.flowfield_weights = flowfield_weights
         self.vel = (0,0)
-        self.value = random.randrange(1, 255)
+        self.value = random.randrange(64, 255)
     
     def update(self):
         self.lifespan -= 1
@@ -53,14 +53,16 @@ def create_new_particle():
 
 width = 512
 height = 512
-flowfield_weights = get_perlin_flowfield(height=height, width=width, seed=123, octaves=4)
+flowfield_weights = get_perlin_flowfield(height=height, width=width, seed=652, octaves=7)
 particles = []
 max_tail_length = 128
-min_particle_number = 1024
+min_particle_number = 1596
 max_lifespan = 256
 pixel_queue = []
 output_images = []
-canvas = np.zeros(shape=[height, width, 3], dtype=np.uint8)
+bg_color = (0,0,16)
+canvas = np.ones(shape=[height, width, 3], dtype=np.uint8)
+canvas[:height,:width] = bg_color * np.ones(shape=[1, 1, 3], dtype=np.uint8)
 cv2.imshow("flowfield_weights", flowfield_weights)
 
 for i in range(min_particle_number):
@@ -79,14 +81,14 @@ while True:
             del particle
             create_new_particle()
         else:
-            canvas[math.floor(particle.pos[0]), math.floor(particle.pos[1])] = particle.value * np.ones(shape=[1, 1, 3], dtype=np.uint8)
+            canvas[math.floor(particle.pos[0]), math.floor(particle.pos[1])] = (0,particle.value/4,particle.value) * np.ones(shape=[1, 1, 3], dtype=np.uint8)
             if (particle.pos not in pixel_queue):
                 pixels_current.append(particle.pos)
 
     pixel_queue.append(pixels_current)
     if (len(pixel_queue) >= max_tail_length):
         for pixel in pixel_queue[0]:
-            canvas[math.floor(pixel[0]), math.floor(pixel[1])] = 0
+            canvas[math.floor(pixel[0]), math.floor(pixel[1])] = bg_color
         pixel_queue.pop(0)
 
     cv2.imshow("canvas", canvas)
